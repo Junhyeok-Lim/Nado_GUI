@@ -1,4 +1,5 @@
 import tkinter.ttk as ttk
+import tkinter.messagebox as msgbox
 from tkinter import *
 from tkinter import filedialog
 
@@ -23,6 +24,32 @@ def del_file():
     
     for index in reversed(list_file.curselection()): # 뒤집은 새로운 값을 반환. 실제 리스트에는 영향 X
         list_file.delete(index)
+
+# 저장 경로 (폴더)
+def browse_dest_path():
+    folder_selected = filedialog.askdirectory()
+    if folder_selected == '': # 사용자가 취소를 누를 때
+        return
+    txt_dest_path.delete(0, END)
+    txt_dest_path.insert(0, folder_selected)
+
+# 시작
+
+def start():
+    # 각 옵션들 값을 확인
+    print("가로넓이 : ", cmb_width.get())
+    print("간격 : ", cmb_space.get())
+    print("포맷 : ", cmb_format.get())
+
+    # 파일 목록 확인
+    if list_file.size() == 0:
+        msgbox.showwarning("경고", "이미지 파일을 추가하세요") # 파일이 없을 때 시작을 누르면 경고 메시지 출력
+        return
+
+    # 저장 경로 확인
+    if len(txt_dest_path.get()) == 0:
+        msgbox.showwarning("경고", "저장 경로를 선택하세요") # 저장 경로 선택 안하고 시작을 누르면 경고 메시지 출력
+        return
 
 
 btn_add_file = Button(file_frame, padx=5, pady=5, width=12, text="파일추가", command=add_file)
@@ -49,7 +76,7 @@ path_frame.pack(fill="x", padx=5, pady=5, ipady=5)
 txt_dest_path = Entry(path_frame)
 txt_dest_path.pack(side="left", fill="x", expand=True, padx=5, pady=5, ipady=4) 
 
-btn_dest_path = Button(path_frame, text="찾아보기", width=10)
+btn_dest_path = Button(path_frame, text="찾아보기", width=10, command=browse_dest_path)
 btn_dest_path.pack(side="right", padx=5, pady=5)
 
 # 옵션 프레임
@@ -105,7 +132,7 @@ frame_run.pack(fill="x", padx=5, pady=5)
 btn_close = Button(frame_run, padx=5, pady=5, text="닫기", width=12, command=root.quit)
 btn_close.pack(side="right", padx=5, pady=5)
 
-btn_start = Button(frame_run, padx=5, pady=5, text="시작", width=12)
+btn_start = Button(frame_run, padx=5, pady=5, text="시작", width=12, command=start)
 btn_start.pack(side="right", padx=5, pady=5)
 
 
