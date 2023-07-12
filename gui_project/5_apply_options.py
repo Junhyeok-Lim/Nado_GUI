@@ -16,7 +16,7 @@ file_frame.pack(fill="x", padx=5, pady=5)
 def add_file():
     files = filedialog.askopenfilenames(title="이미지 파일을 선택하세요", \
                                          filetypes=(("PNG 파일", "*.png"), ("모든 파일", "*.*")), \
-                                        initialdir=r"C:\Users\a00559075\Desktop\가상환경_ppt") # 최초에 C:/ 경로를 보여줌
+                                        initialdir=r"C:\Users\a00559075\Desktop\가상환경_ppt") # 최초 경로
     # 사용자가 선택한 파일 목록
     for file in files:
         list_file.insert(END, file)
